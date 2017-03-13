@@ -21,7 +21,13 @@ $router->map('GET', '/organizations.top', function () {
 $router->map('GET', '/organization.get/[i:id]', function ($id) {
     require __DIR__ . '/controllers/orgsctrl.php';
     $o = new OrgController();
-    $o->orderById($id);
+    $o->getById($id);
+});
+
+$router->map('GET', '/organization.get.reviews/[i:id]', function ($id) {
+    require __DIR__ . '/controllers/orgsctrl.php';
+    $o = new OrgController();
+    $o->getByIdReviews($id);
 });
 
 $router->map('GET', '/nearest/[i:x]/[i:y]/[i:id]', function ($x, $y, $id) {

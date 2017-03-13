@@ -19,10 +19,16 @@ class OrgController extends Controller{
 	    $orgs = R::findAll('organization', ' ORDER BY `sub_b` DESC LIMIT 10 ');
         self::json($orgs);
     }
-    function orderById($id) {
+    function getById($id) {
         header("Content-type:application/json");
         header("Access-Control-Allow-Origin: *");
 	    $orgs = R::findOne('organization', 'id = ?', [$id]);
+        self::json($orgs);
+    }
+    function getByIdReviews($id) {
+        header("Content-type:application/json");
+        header("Access-Control-Allow-Origin: *");
+	    $orgs = R::findAll('review', 'org_id = ?', [$id]);
         self::json($orgs);
     }
     function signup() {
