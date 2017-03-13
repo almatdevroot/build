@@ -1,0 +1,12 @@
+{
+    "name": "user/tap.kz",
+    "require": {
+        "altorouter/altorouter": "^1.2"
+    },
+    "authors": [
+        {
+            "name": "a a",
+            "email": "a@a.c"
+        }
+    ]
+}
