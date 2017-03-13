@@ -42,7 +42,7 @@ class UserController extends Controller{
     }
     function myreviews() {
         $this->check(function ($user) {
-            $rw = R::findAll('review', 'userId = ?', [$user->id]);
+            $rw = R::findAll('review', 'user_id = ?', [$user->id]);
             self::json($rw);
         }, function () {
             self::json(['message' => 'error']);
@@ -52,6 +52,28 @@ class UserController extends Controller{
         $this->check(function ($user) use($id) {
             $rw = R::findOne('review', 'id = ?', [$id]);
             R::trash($rw);
+        }, function () {
+            self::json(['message' => 'error']);
+        });
+    }
+    function addreview() {
+        $h = getallheaders();
+        $this->check(function ($user) use($h) {
+            $rw = R::dispense('review');
+            $rw->userId = $_POST['userId'];
+            $rw->userName = $_POST['userName'];
+            $rw->text = $_POST['text'];
+            $rw->bagha = $_POST['bagha'];
+            $rw->orgId = $_POST['orgId'];
+            
+            $org = R::load('organization', $rw->orgId);
+            $org->sub_b = $org->sub_b + $rw->bagha;
+            $org->count_b = $org->count_b + 1;
+
+            R::store($rw);
+            R::store($org);            
+            self::json(['message' => 'OK']);
+
         }, function () {
             self::json(['message' => 'error']);
         });

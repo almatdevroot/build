@@ -64,6 +64,12 @@ $router->map('GET', '/myreviews', function () {
     $u->myreviews();
 });
 
+$router->map('POST', '/addreview', function () {
+    require __DIR__ . '/controllers/userctrl.php';
+    $u = new UserController();
+    $u->addreview();
+});
+
 $router->map('DELETE', '/rw', function () {
     require __DIR__ . '/controllers/userctrl.php';
     $u = new UserController();
